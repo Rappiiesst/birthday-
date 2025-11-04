@@ -1,59 +1,64 @@
-import os
-import time
-import random
-import pyttsx3
+os.system("play happy.mp3 &")
+import os, time, random
+from colorama import Fore, Style
 
-# Sound engine setup
-engine = pyttsx3.init()
-engine.setProperty('rate', 130)
+# Safe looping (press Ctrl+C to stop)
+name = input(Fore.CYAN + "🎂 Enter your friend's name: " + Style.RESET_ALL)
 
-name = input("🎂 Enter your friend's name: ")
-
-ascii_art = [
-    r"""
-    🎂🎉  HAPPY BIRTHDAY  🎉🎂
-     ____||____
-    |~ ~ ~ ~ ~|
-    | H B D 🎈|
-    |_________|
-    """,
-    r"""
-      ✨🎂✨
-    ╔══╗──╔╗
-    ║╚═╬══╣╚╦╦╦══╦══╗
-    ║╔╗║╔╗║╔╬╣╔╗║══╣
-    ║╚╝║╚╝║║║║╔╗╠══║
-    ╚══╩══╩╝╚╩╝╚╩══╝
-    """,
-    r"""
-    🎈🎈🎈
-      🍰 Happy Birthday 🍰
-      To the most special soul!
-    🎉🎉🎉
-    """
+ascii_arts = [
+r"""
+  🎂🎉 HAPPY BIRTHDAY 🎉🎂
+      ________
+     |~ ~ ~ ~|
+     |  HBD  |
+     |_______|
+""",
+r"""
+  🎈🎈🎈🎈🎈
+  ╔══╗──────╔╗
+  ║╚═╬══╦══╬╬╦═╗
+  ║╔╗║╔╗║╔═╣║║╔╝
+  ║╚╝║╚╝║╚═╣║║║
+  ╚══╩══╩══╩╩╩╝
+  💖 Happy Birthday 💖
+""",
+r"""
+  🎉🍰🎂✨
+   *~*~*~*~*~*
+     HAPPY
+     BIRTHDAY
+     TO YOU 💝
+   *~*~*~*~*~*
+"""
 ]
 
 wishes = [
-    f"🎉 {name}, janmadin mubarak ho! Tumhara din khushiyon se bhara rahe! 💫",
-    f"🎂 Happy Birthday {name}! Tumhari life sweet ho jaise cake 🎂",
-    f"🎁 {name}, har pal me muskaan rahe, har din me khushi rahe! 🌟",
-    f"💐 Tumhari zindagi me sirf pyaar, sukh aur safalta aaye! 🎉",
-    f"🌈 {name}, tumhe mile har wo khushi jiske tum haqdaar ho 💖",
+    f"🎊 {name}, tumhara har din khushiyon se bhara rahe!",
+    f"🎂 Happy Birthday {name}! Life tumhari cake jaisi sweet ho! 🍰",
+    f"💐 Bhagwan tumhe sehat, sukh aur safalta de! 🌟",
+    f"🎁 Tumhe mile duniya bhar ki khushiyan aur pyaar ❤️",
+    f"🌈 {name}, tum hamesha muskurate raho aur sabko khush rakho!"
 ]
 
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+colors = [Fore.CYAN, Fore.MAGENTA, Fore.YELLOW, Fore.GREEN, Fore.BLUE, Fore.RED]
 
-# Infinite birthday loop
-while True:
-    os.system("clear")
-    art = random.choice(ascii_art)
-    print("\033[1;36m" + art + "\033[0m")
-    
-    wish = random.choice(wishes)
-    print("\033[1;33m" + wish + "\033[0m")
-    
-    speak("Happy Birthday to you, " + name)
-    
-    time.sleep(3)
+def rainbow_text(text):
+    shades = [Fore.RED, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.MAGENTA, Fore.WHITE]
+    result = ""
+    for i, ch in enumerate(text):
+        result += shades[i % len(shades)] + ch
+    return result + Style.RESET_ALL
+
+try:
+    while True:
+        os.system("clear")
+        color = random.choice(colors)
+        art = random.choice(ascii_arts)
+        wish = random.choice(wishes)
+
+        print(rainbow_text(art))
+        print(rainbow_text(wish))
+        print(color + "🎉🎈🎂 " + " ".join(random.choices(["💖","🎊","🎁","🎉","🎈","✨"], k=25)) + Style.RESET_ALL)
+        time.sleep(2)
+except KeyboardInterrupt:
+    print(Style.RESET_ALL + "\n🎂 Celebration ended safely. Happy Birthday once again!")

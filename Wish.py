@@ -5,17 +5,18 @@ from colorama import Fore, Style, init
 
 init(autoreset=True)
 
-# 💞 Fixed name for special wish
+# 💖 Fixed name
 name = "Anushi 💋"
+lover = "Rohit ❤️"
 
-# 🎵 Optional background music
+# 🎵 Optional background song
 if os.path.exists("happy.mp3"):
     os.system("play happy.mp3 &")
 
-# 🎨 Color options
-colors = [Fore.RED, Fore.GREEN, Fore.YELLOW, Fore.BLUE, Fore.MAGENTA, Fore.CYAN]
+# 🎨 Colors
+colors = [Fore.RED, Fore.MAGENTA, Fore.YELLOW, Fore.BLUE, Fore.CYAN, Fore.GREEN]
 
-# 🎂 Cake art styles
+# 🎂 Cakes
 cakes = [
 r"""
         i i i i i i
@@ -39,7 +40,7 @@ r"""
 """
 ]
 
-# 💌 Wishes
+# 🎁 Wishes
 wishes = [
     "🎂 Rohit ki Jaan Anushi 💋, tumhara din pyar aur khushiyon se bhara rahe!",
     "💖 Tumhari muskurahat duniya roshan karti hai 🌟",
@@ -50,7 +51,18 @@ wishes = [
     "🎊 Happy Birthday once again Anushi 💋, stay happy forever 💫",
 ]
 
-# 🌈 Rainbow effect
+# 💞 Love Shayari
+shayari = [
+    "💌 Tum meri zindagi ka woh hissa ho, jahan har subah sirf tumse shuru hoti hai ❤️",
+    "💖 Har saans mein tera naam hai, har dhadkan mein tera ehsaas hai 💋",
+    "🌙 Tum meri duaon ka woh hissa ho jo har raat maangta hoon ⭐",
+    "💘 Tum ho toh lagta hai har pal meetha hai, har lamha khubsurat hai 💫",
+    "🌹 Ishq woh nahi jo zuban se kaha jaaye, ishq toh woh hai jo aankhon se samjha jaaye 💞",
+    "🎶 Tum meri muskurahat ho, meri har khushi ka sabab ho 💓",
+    "❤️ Rohit ka pyaar Anushi ke liye kabhi kam nahi hoga 💋",
+]
+
+# 🌈 Rainbow text effect
 def rainbow(text):
     shades = [Fore.RED, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
     return "".join(shades[i % len(shades)] + ch for i, ch in enumerate(text)) + Style.RESET_ALL
@@ -60,7 +72,7 @@ def emoji_rain():
     emojis = ["🎂", "🎉", "🎈", "💖", "💋", "🎊", "🌸", "🥳", "🍰", "💕"]
     print(random.choice(colors) + "".join(random.choice(emojis) for _ in range(60)))
 
-# 🔁 Infinite loop (runs until Ctrl + C)
+# 🔁 Infinite celebration
 try:
     while True:
         os.system("clear")
@@ -68,10 +80,11 @@ try:
         print(rainbow(f"\n★🎂 Happy Birthday, {name}! 🎂★\n"))
         print(random.choice(colors) + random.choice(cakes))
         print(rainbow(random.choice(wishes)))
-        print(random.choice(colors) + f"\n💌 Tumhara dost — Rohit ❤️ (Forever Yours 💋)")
+        print(random.choice(colors) + "\n" + random.choice(shayari))
+        print(random.choice(colors) + f"\n💌 Tumhara {lover} — Forever Yours 💋")
         emoji_rain()
         print(Fore.WHITE + "\n(Press Ctrl + C to stop celebration)\n")
-        time.sleep(2)
+        time.sleep(3)
 except KeyboardInterrupt:
     os.system("clear")
-    print(Fore.MAGENTA + "\n🎉 Celebration stopped manually. Rohit ❤️ always loves Anushi 💋🎂")
+    print(Fore.MAGENTA + "\n🎉 Celebration stopped manually. Rohit ❤️ always loves Anushi 💋 forever 🎂")

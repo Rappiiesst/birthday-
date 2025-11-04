@@ -1,24 +1,18 @@
 #!/usr/bin/env python3
-# birthday_wish.py
-# Termux friendly birthday wish (no external libraries)
+# Infinite Birthday Wisher by Rohit
+# Works perfectly in Termux (no extra modules)
 
-import sys
-import time
-import os
+import os, sys, time, random
 
-# ANSI color helpers
+# --- Colors ---
 RESET = "\033[0m"
 BOLD = "\033[1m"
 COLS = {
-    "red": "\033[31m",
-    "green": "\033[32m",
-    "yellow": "\033[33m",
-    "blue": "\033[34m",
-    "magenta": "\033[35m",
-    "cyan": "\033[36m",
-    "white": "\033[37m",
+    "red": "\033[31m", "green": "\033[32m", "yellow": "\033[33m",
+    "blue": "\033[34m", "magenta": "\033[35m", "cyan": "\033[36m"
 }
 
+# --- Balloons ASCII ---
 BALLOON = [
     "     .-''''-.",
     "   .'  .--.  '.",
@@ -35,6 +29,7 @@ BALLOON = [
     "       /  \\"
 ]
 
+# --- Cake ASCII ---
 CAKE = [
     "        ,,,,,",
     "       |||||",
@@ -46,8 +41,23 @@ CAKE = [
     " |__|_________|__|"
 ]
 
+# --- Birthday wishes list ---
+WISHES = [
+    "🎉 May your day be full of smiles and sunshine!",
+    "🎂 Wishing you endless happiness and success!",
+    "🎈 May all your dreams come true this year!",
+    "💫 Stay blessed, healthy and always amazing!",
+    "🌟 Another year older, wiser and happier!",
+    "❤️ Sending loads of love and laughter your way!",
+    "💐 Hope your life sparkles like your smile!",
+    "🔥 Keep shining, keep rocking — it’s your day!",
+    "🎁 May your future be as bright as candles on your cake!",
+    "☀️ You deserve every bit of joy in the world!",
+    "🌈 Stay positive, stay awesome — always!",
+]
+
 def clear():
-    os.system('clear' if os.name == 'posix' else 'cls')
+    os.system("clear" if os.name == "posix" else "cls")
 
 def type_print(text, delay=0.01):
     for c in text:
@@ -56,67 +66,55 @@ def type_print(text, delay=0.01):
         time.sleep(delay)
     print()
 
-def big_banner(name):
-    # Simple big text made from characters (no figlet)
-    line = f"{BOLD}{COLS['magenta']}╔════════════════════════════════╗{RESET}"
-    print(line)
-    title = f"{BOLD}{COLS['cyan']}   ★ Happy Birthday, {name}! ★   {RESET}"
-    print(title)
-    print(line)
+def confetti(duration=1.5):
+    t_end = time.time() + duration
+    while time.time() < t_end:
+        row = ''.join(random.choice(['*','✨','❤','★','·','+',' ']) for _ in range(40))
+        print(random.choice(list(COLS.values())) + row + RESET)
+        time.sleep(0.1)
 
-def animate_balloons(name, rounds=6):
-    colors = ["red","yellow","green","cyan","blue","magenta"]
-    for r in range(rounds):
-        clear()
-        col = COLS[colors[r % len(colors)]]
-        for i, l in enumerate(BALLOON):
-            # shift balloons horizontally for simple animation
-            pad = ' ' * ((r + i) % 8)
-            print(pad + col + l + RESET)
-        print()
-        big_banner(name)
-        time.sleep(0.6)
+def show_banner(name):
+    print(f"{BOLD}{COLS['cyan']}╔═══════════════════════════════════╗{RESET}")
+    print(f"{BOLD}{COLS['magenta']}   ★★ Happy Birthday, {name}! ★★   {RESET}")
+    print(f"{BOLD}{COLS['cyan']}╚═══════════════════════════════════╝{RESET}")
+
+def show_balloons(name):
+    color = random.choice(list(COLS.values()))
+    for l in BALLOON:
+        print(color + l + RESET)
+    print()
+    show_banner(name)
 
 def show_cake():
-    print()
     for line in CAKE:
         print(COLS['yellow'] + line + RESET)
     print()
 
-def confetti(duration=2.0, density=60):
-    import random
-    t_end = time.time() + duration
-    width = 40
-    while time.time() < t_end:
-        clear()
-        for _ in range(8):
-            row = ''.join(random.choice(['*','·','✦','✨','❤','★','•',' ']) for _ in range(width))
-            print(row)
-        time.sleep(0.15)
-
 def main():
-    if len(sys.argv) > 1:
-        name = ' '.join(sys.argv[1:])
-    else:
-        name = input("Dost ka naam daalo: ").strip() or "Dost"
+    name = input("Apne dost ka naam likho: ").strip() or "Dost"
     clear()
-    type_print(f"{COLS['green']}Preparing special wish for {name}...{RESET}", 0.02)
-    time.sleep(0.8)
-    animate_balloons(name, rounds=7)
-    confetti(1.2)
-    clear()
-    big_banner(name)
-    show_cake()
-    type_print(COLS['cyan'] + BOLD + f"🎉 {name}, Janmadin ki dher saari shubhkaamnayein! 🎉" + RESET, 0.01)
-    print()
-    type_print("Tumhara dost — " + COLS['magenta'] + "🎈 Sent with Termux script" + RESET, 0.01)
-    # beep (may work in Termux)
-    sys.stdout.write("\a")
-    sys.stdout.flush()
+    type_print(f"{COLS['green']}🎉 Special birthday wish loading for {name}...{RESET}", 0.02)
+    time.sleep(1)
+
+    # Infinite loop of blessings
+    while True:
+        clear()
+        show_balloons(name)
+        show_cake()
+        wish = random.choice(WISHES)
+        print()
+        type_print(random.choice(list(COLS.values())) + BOLD + wish + RESET, 0.01)
+        print()
+        confetti()
+        time.sleep(1)
+        # Add more wishes dynamically (infinite feel)
+        extra = f"✨ {name}, stay happy and keep smiling always! ✨"
+        WISHES.append(extra)
+        time.sleep(2)
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
         clear()
-        print("\nBye!")
+        print(f"{COLS['yellow']}Program stopped. Have a wonderful day!{RESET}")

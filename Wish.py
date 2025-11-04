@@ -46,17 +46,17 @@ while True:
     for wish in wishes:
         for ch in wish:
             print(ch, end='', flush=True)
-            time.sleep(0.03)
+            time.sleep(0.00)
         print("\n")
-        time.sleep(1)
+        time.sleep(0)
 
     print("\n🌹  Ishq Bhari Shayari 🌹\n")
     for line in shayari:
         for ch in line:
             print(ch, end='', flush=True)
-            time.sleep(0.03)
+            time.sleep(0.00)
         print("\n")
-        time.sleep(1.5)
+        time.sleep(0.0)
 
     print("✨ — From Rohit with Endless Love 💖 — ✨\n")
-    time.sleep(3)
+    time.sleep(0)

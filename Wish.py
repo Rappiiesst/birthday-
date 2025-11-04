@@ -5,18 +5,19 @@ from colorama import Fore, Style, init
 
 init(autoreset=True)
 
-# 🎈 User se naam lena
-name = input(Fore.CYAN + "🎂 Enter your friend's name: " + Style.RESET_ALL)
+# 💞 Fixed name for special wish
+name = "Anushi 💋"
 
-# 🎶 Optional: agar background music play karna hai (Termux me play command installed ho)
+# 🎵 Optional background music
 if os.path.exists("happy.mp3"):
     os.system("play happy.mp3 &")
 
-# 🎨 Color list
+# 🎨 Color options
 colors = [Fore.RED, Fore.GREEN, Fore.YELLOW, Fore.BLUE, Fore.MAGENTA, Fore.CYAN]
 
-# 🎂 Cake design aur wishes
-cake_art = r"""
+# 🎂 Cake art styles
+cakes = [
+r"""
         i i i i i i
        |:H:a:p:p:y:|
      __|___________|__
@@ -24,34 +25,53 @@ cake_art = r"""
     |:B:i:r:t:h:d:a:y:|
     |                 |
     ~~~~~~~~~~~~~~~~~~~
+""",
+r"""
+   🎂🎂🎂🎂🎂
+  🎉 HAPPY 🎉
+ 🎈 BIRTHDAY 🎈
+   🎂🎂🎂🎂🎂
+""",
+r"""
+   🎊🎂  H A P P Y  🎂🎊
+  💖  B I R T H D A Y  💖
+   🎈🎂   A N U S H I   🎂🎈
 """
-
-wishes = [
-    "🎉 Tumhara din khushiyon se bhara rahe!",
-    "🎂 Bhagwan kare tumhe har khushi mile jo tum chaaho!",
-    "🎁 Tumhari life sweet ho jaise cake ka frosting 🍰",
-    "💫 Tum hamesha muskurate raho aur duniya roshan karo 🌟",
-    "💖 Tumhara har sapna poora ho! ✨",
-    "🎈 Happy Birthday once again! Party hard! 🎊",
 ]
 
-# 🌈 Rainbow text effect
+# 💌 Wishes
+wishes = [
+    "🎂 Rohit ki Jaan Anushi 💋, tumhara din pyar aur khushiyon se bhara rahe!",
+    "💖 Tumhari muskurahat duniya roshan karti hai 🌟",
+    "🎈 Tum jiyo hazaron saal, yehi dua hai Rohit ki 💞",
+    "🎉 Har saal tum aur bhi beautiful lagti ho 😘",
+    "🎁 Tumhari life chocolate cake jaise meethi rahe 🍫",
+    "🌈 Rohit tumhe hamesha khush dekhna chahta hai 💘",
+    "🎊 Happy Birthday once again Anushi 💋, stay happy forever 💫",
+]
+
+# 🌈 Rainbow effect
 def rainbow(text):
     shades = [Fore.RED, Fore.YELLOW, Fore.GREEN, Fore.CYAN, Fore.BLUE, Fore.MAGENTA]
-    result = ""
-    for i, ch in enumerate(text):
-        result += shades[i % len(shades)] + ch
-    return result + Style.RESET_ALL
+    return "".join(shades[i % len(shades)] + ch for i, ch in enumerate(text)) + Style.RESET_ALL
 
-# 🔁 Infinite loop (manual stop with Ctrl + C)
+# 🎊 Emoji rain animation
+def emoji_rain():
+    emojis = ["🎂", "🎉", "🎈", "💖", "💋", "🎊", "🌸", "🥳", "🍰", "💕"]
+    print(random.choice(colors) + "".join(random.choice(emojis) for _ in range(60)))
+
+# 🔁 Infinite loop (runs until Ctrl + C)
 try:
     while True:
         os.system("clear")
-        print(rainbow(f"★🎂 Happy Birthday, {name}! 🎂★\n"))
-        print(random.choice(colors) + cake_art)
+        emoji_rain()
+        print(rainbow(f"\n★🎂 Happy Birthday, {name}! 🎂★\n"))
+        print(random.choice(colors) + random.choice(cakes))
         print(rainbow(random.choice(wishes)))
-        print(random.choice(colors) + f"\n💌 Tumhara dost — Rohit ❤️")
+        print(random.choice(colors) + f"\n💌 Tumhara dost — Rohit ❤️ (Forever Yours 💋)")
+        emoji_rain()
         print(Fore.WHITE + "\n(Press Ctrl + C to stop celebration)\n")
         time.sleep(2)
 except KeyboardInterrupt:
-    print(Fore.CYAN + "\n🎉 Celebration stopped manually. Happy Birthday again! 🎂")
+    os.system("clear")
+    print(Fore.MAGENTA + "\n🎉 Celebration stopped manually. Rohit ❤️ always loves Anushi 💋🎂")
